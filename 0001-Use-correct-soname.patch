@@ -1,0 +1,26 @@
+From 205eb274213ba2d81d1d06492f2e58dd67af51e0 Mon Sep 17 00:00:00 2001
+From: Ikey Doherty <michael.i.doherty@intel.com>
+Date: Tue, 1 Sep 2015 16:03:22 +0100
+Subject: [PATCH] Use correct soname
+
+Signed-off-by: Ikey Doherty <michael.i.doherty@intel.com>
+---
+ src/backends/isa-l/isa_l_rs_vand.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/backends/isa-l/isa_l_rs_vand.c b/src/backends/isa-l/isa_l_rs_vand.c
+index 541d308..a2a1fd8 100644
+--- a/src/backends/isa-l/isa_l_rs_vand.c
++++ b/src/backends/isa-l/isa_l_rs_vand.c
+@@ -42,7 +42,7 @@
+ #if defined(__MACOS__) || defined(__MACOSX__) || defined(__OSX__) || defined(__APPLE__)
+ #define ISA_L_RS_VAND_SO_NAME "libisal.dylib"
+ #else
+-#define ISA_L_RS_VAND_SO_NAME "libisal.so"
++#define ISA_L_RS_VAND_SO_NAME "libisal.so.2"
+ #endif
+ 
+ /* Forward declarations */
+-- 
+2.5.0
+
