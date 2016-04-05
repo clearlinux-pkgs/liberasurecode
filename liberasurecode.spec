@@ -4,7 +4,7 @@
 #
 Name     : liberasurecode
 Version  : 1.1.1
-Release  : 5
+Release  : 6
 URL      : https://bitbucket.org/tsg-/liberasurecode/get/v1.1.1.tar.bz2
 Source0  : https://bitbucket.org/tsg-/liberasurecode/get/v1.1.1.tar.bz2
 Summary  : Naive Reed-Soloman Vandermonde Backend built-in to liberasurecode
@@ -39,6 +39,13 @@ lib components for the liberasurecode package.
 %setup -q -n tsg--liberasurecode-debb72493d0e
 
 %build
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -flto -O3 -fno-semantic-interposition -falign-functions=32 "
+export FCFLAGS="$CFLAGS -flto -O3 -fno-semantic-interposition -falign-functions=32 "
+export FFLAGS="$CFLAGS -flto -O3 -fno-semantic-interposition -falign-functions=32 "
+export CXXFLAGS="$CXXFLAGS -flto -O3 -fno-semantic-interposition -falign-functions=32 "
 %autogen --disable-static
 make V=1  %{?_smp_mflags}
 
