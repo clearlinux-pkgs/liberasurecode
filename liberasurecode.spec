@@ -4,7 +4,7 @@
 #
 Name     : liberasurecode
 Version  : 1.1.1
-Release  : 7
+Release  : 8
 URL      : https://bitbucket.org/tsg-/liberasurecode/get/v1.1.1.tar.bz2
 Source0  : https://bitbucket.org/tsg-/liberasurecode/get/v1.1.1.tar.bz2
 Summary  : Naive Reed-Soloman Vandermonde Backend built-in to liberasurecode
