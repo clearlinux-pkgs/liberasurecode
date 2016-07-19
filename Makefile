@@ -1,5 +1,5 @@
 PKG_NAME := liberasurecode
-URL := https://bitbucket.org/tsg-/liberasurecode/get/v1.1.1.tar.bz2
+URL := https://github.com/openstack/liberasurecode/archive/1.2.0.tar.gz
 ARCHIVES :=
 
 include ../common/Makefile.common

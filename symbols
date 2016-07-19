@@ -47,11 +47,14 @@ liberasurecode.so.1:get_galois_multi_func
 liberasurecode.so.1:get_galois_uninit_func
 liberasurecode.so.1:get_jerasure_sohandle
 liberasurecode.so.1:get_libec_version
+liberasurecode.so.1:get_metadata_chksum
 liberasurecode.so.1:get_orig_data_size
 liberasurecode.so.1:init_alg_sig
 liberasurecode.so.1:is_invalid_fragment
-liberasurecode.so.1:is_valid_fragment_metadata
+liberasurecode.so.1:is_invalid_fragment_header
+liberasurecode.so.1:is_invalid_fragment_metadata
 liberasurecode.so.1:liberasurecode_backend_alloc_desc
+liberasurecode.so.1:liberasurecode_backend_available
 liberasurecode.so.1:liberasurecode_backend_close
 liberasurecode.so.1:liberasurecode_backend_instance_get_by_desc
 liberasurecode.so.1:liberasurecode_backend_instance_register
@@ -88,6 +91,7 @@ liberasurecode.so.1:set_fragment_backend_metadata_size
 liberasurecode.so.1:set_fragment_idx
 liberasurecode.so.1:set_fragment_payload_size
 liberasurecode.so.1:set_libec_version
+liberasurecode.so.1:set_metadata_chksum
 liberasurecode.so.1:set_orig_data_size
 liberasurecode.so.1:stub_galois_uninit_field
 liberasurecode_rs_vand.so.1:col_mult
