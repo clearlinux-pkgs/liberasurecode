@@ -53,6 +53,7 @@ liberasurecode.so.1:init_alg_sig
 liberasurecode.so.1:is_invalid_fragment
 liberasurecode.so.1:is_invalid_fragment_header
 liberasurecode.so.1:is_invalid_fragment_metadata
+liberasurecode.so.1:is_valid_fragment_metadata
 liberasurecode.so.1:liberasurecode_backend_alloc_desc
 liberasurecode.so.1:liberasurecode_backend_available
 liberasurecode.so.1:liberasurecode_backend_close
