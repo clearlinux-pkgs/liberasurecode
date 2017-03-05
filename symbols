@@ -53,7 +53,13 @@ liberasurecode.so.1:init_alg_sig
 liberasurecode.so.1:is_invalid_fragment
 liberasurecode.so.1:is_invalid_fragment_header
 liberasurecode.so.1:is_invalid_fragment_metadata
-liberasurecode.so.1:is_valid_fragment_metadata
+liberasurecode.so.1:isa_l_common_init
+liberasurecode.so.1:isa_l_decode
+liberasurecode.so.1:isa_l_element_size
+liberasurecode.so.1:isa_l_encode
+liberasurecode.so.1:isa_l_exit
+liberasurecode.so.1:isa_l_min_fragments
+liberasurecode.so.1:isa_l_reconstruct
 liberasurecode.so.1:liberasurecode_backend_alloc_desc
 liberasurecode.so.1:liberasurecode_backend_available
 liberasurecode.so.1:liberasurecode_backend_close
@@ -71,6 +77,7 @@ liberasurecode.so.1:liberasurecode_get_aligned_data_size
 liberasurecode.so.1:liberasurecode_get_fragment_metadata
 liberasurecode.so.1:liberasurecode_get_fragment_size
 liberasurecode.so.1:liberasurecode_get_minimum_encode_size
+liberasurecode.so.1:liberasurecode_get_version
 liberasurecode.so.1:liberasurecode_init
 liberasurecode.so.1:liberasurecode_instance_create
 liberasurecode.so.1:liberasurecode_instance_destroy
