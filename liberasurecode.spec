@@ -4,7 +4,7 @@
 #
 Name     : liberasurecode
 Version  : 1.4.0
-Release  : 12
+Release  : 13
 URL      : http://github.com/openstack/liberasurecode/archive/1.4.0.tar.gz
 Source0  : http://github.com/openstack/liberasurecode/archive/1.4.0.tar.gz
 Summary  : Naive Reed-Soloman Vandermonde Backend built-in to liberasurecode
