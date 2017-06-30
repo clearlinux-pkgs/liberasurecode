@@ -1,5 +1,5 @@
 PKG_NAME := liberasurecode
-URL := http://github.com/openstack/liberasurecode/archive/1.4.0.tar.gz
+URL := https://github.com/openstack/liberasurecode/archive/1.5.0.tar.gz
 
 
 include ../common/Makefile.common
