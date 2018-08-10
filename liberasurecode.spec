@@ -4,7 +4,7 @@
 #
 Name     : liberasurecode
 Version  : 1.5.0
-Release  : 15
+Release  : 16
 URL      : https://github.com/openstack/liberasurecode/archive/1.5.0.tar.gz
 Source0  : https://github.com/openstack/liberasurecode/archive/1.5.0.tar.gz
 Summary  : Naive Reed-Soloman Vandermonde Backend built-in to liberasurecode
@@ -12,6 +12,7 @@ Group    : Development/Tools
 License  : BSD-2-Clause
 Requires: liberasurecode-lib
 Requires: liberasurecode-license
+BuildRequires : isa-l-dev
 
 %description
 liberasurecode
@@ -50,13 +51,16 @@ license components for the liberasurecode package.
 pushd ..
 cp -a liberasurecode-1.5.0 buildavx2
 popd
+pushd ..
+cp -a liberasurecode-1.5.0 buildavx512
+popd
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1533876341
+export SOURCE_DATE_EPOCH=1533876619
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
@@ -71,6 +75,13 @@ export LDFLAGS="$LDFLAGS -m64 -march=haswell "
 %autogen --disable-static
 make  %{?_smp_mflags}
 popd
+pushd ../buildavx512/
+export CFLAGS="$CFLAGS -m64 -march=skylake-avx512 "
+export CXXFLAGS="$CXXFLAGS -m64 -march=skylake-avx512 "
+export LDFLAGS="$LDFLAGS -m64 -march=skylake-avx512 "
+%autogen --disable-static
+make  %{?_smp_mflags}
+popd
 %check
 export LANG=C
 export http_proxy=http://127.0.0.1:9/
@@ -79,10 +90,13 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1533876341
+export SOURCE_DATE_EPOCH=1533876619
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/liberasurecode
 cp COPYING %{buildroot}/usr/share/doc/liberasurecode/COPYING
+pushd ../buildavx512/
+%make_install_avx512
+popd
 pushd ../buildavx2/
 %make_install_avx2
 popd
@@ -121,6 +135,9 @@ popd
 
 %files lib
 %defattr(-,root,root,-)
+/usr/lib64/haswell/avx512_1/liberasurecode.so
+/usr/lib64/haswell/avx512_1/liberasurecode.so.1
+/usr/lib64/haswell/avx512_1/liberasurecode.so.1.5.0
 /usr/lib64/haswell/libXorcode.so.1
 /usr/lib64/haswell/libXorcode.so.1.0.1
 /usr/lib64/haswell/liberasurecode.so.1
