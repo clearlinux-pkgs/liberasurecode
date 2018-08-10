@@ -4,13 +4,14 @@
 #
 Name     : liberasurecode
 Version  : 1.5.0
-Release  : 14
+Release  : 15
 URL      : https://github.com/openstack/liberasurecode/archive/1.5.0.tar.gz
 Source0  : https://github.com/openstack/liberasurecode/archive/1.5.0.tar.gz
 Summary  : Naive Reed-Soloman Vandermonde Backend built-in to liberasurecode
 Group    : Development/Tools
 License  : BSD-2-Clause
 Requires: liberasurecode-lib
+Requires: liberasurecode-license
 
 %description
 liberasurecode
@@ -30,27 +31,46 @@ dev components for the liberasurecode package.
 %package lib
 Summary: lib components for the liberasurecode package.
 Group: Libraries
+Requires: liberasurecode-license
 
 %description lib
 lib components for the liberasurecode package.
 
 
+%package license
+Summary: license components for the liberasurecode package.
+Group: Default
+
+%description license
+license components for the liberasurecode package.
+
+
 %prep
 %setup -q -n liberasurecode-1.5.0
+pushd ..
+cp -a liberasurecode-1.5.0 buildavx2
+popd
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1498851360
-export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
-export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
-export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
-export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
+export SOURCE_DATE_EPOCH=1533876341
+export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 %autogen --disable-static
-make V=1  %{?_smp_mflags}
+make  %{?_smp_mflags}
 
+pushd ../buildavx2/
+export CFLAGS="$CFLAGS -m64 -march=haswell "
+export CXXFLAGS="$CXXFLAGS -m64 -march=haswell "
+export LDFLAGS="$LDFLAGS -m64 -march=haswell "
+%autogen --disable-static
+make  %{?_smp_mflags}
+popd
 %check
 export LANG=C
 export http_proxy=http://127.0.0.1:9/
@@ -59,8 +79,13 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1498851360
+export SOURCE_DATE_EPOCH=1533876341
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/doc/liberasurecode
+cp COPYING %{buildroot}/usr/share/doc/liberasurecode/COPYING
+pushd ../buildavx2/
+%make_install_avx2
+popd
 %make_install
 
 %files
@@ -85,6 +110,9 @@ rm -rf %{buildroot}
 /usr/include/liberasurecode/rs_galois.h
 /usr/include/liberasurecode/xor_code.h
 /usr/include/liberasurecode/xor_hd_code_defs.h
+/usr/lib64/haswell/libXorcode.so
+/usr/lib64/haswell/liberasurecode.so
+/usr/lib64/haswell/liberasurecode_rs_vand.so
 /usr/lib64/libXorcode.so
 /usr/lib64/liberasurecode.so
 /usr/lib64/liberasurecode_rs_vand.so
@@ -93,6 +121,12 @@ rm -rf %{buildroot}
 
 %files lib
 %defattr(-,root,root,-)
+/usr/lib64/haswell/libXorcode.so.1
+/usr/lib64/haswell/libXorcode.so.1.0.1
+/usr/lib64/haswell/liberasurecode.so.1
+/usr/lib64/haswell/liberasurecode.so.1.5.0
+/usr/lib64/haswell/liberasurecode_rs_vand.so.1
+/usr/lib64/haswell/liberasurecode_rs_vand.so.1.0.1
 /usr/lib64/libXorcode.so.1
 /usr/lib64/libXorcode.so.1.0.1
 /usr/lib64/liberasurecode.so.1
@@ -101,3 +135,7 @@ rm -rf %{buildroot}
 /usr/lib64/liberasurecode_rs_vand.so.1.0.1
 /usr/lib64/libnullcode.so.1
 /usr/lib64/libnullcode.so.1.0.1
+
+%files license
+%defattr(-,root,root,-)
+/usr/share/doc/liberasurecode/COPYING
